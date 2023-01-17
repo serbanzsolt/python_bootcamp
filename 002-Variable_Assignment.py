@@ -35,3 +35,13 @@ my_taxes = my_income * tax_rate
 
 print("My taxes: ", my_taxes)
 print("Type of my taxes: ", type(my_taxes))
+
+# ==============================================================================
+#* Dynamic Typing
+# ==============================================================================
+
+my_variable01 = 2 + 3
+my_variable02 = "2" + "3"
+
+print("my_variable01 is:", my_variable01, "and it's type is",type(my_variable01))
+print("my_variable02 is:", my_variable02, "and it's type is",type(my_variable02))
