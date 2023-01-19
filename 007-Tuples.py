@@ -20,12 +20,12 @@ print("Indexing and slicing tuples: {}".format(my_tuple02[1:]))
 #* Methods - only 2 method available
 # ==============================================================================
 
-#count()
+#* count()
 
 letters_tuple = ("a", "b", "a", "c")
 print("Counting the letter 'a' in the tuple: {}".format(letters_tuple.count("a")))
 
-# index() - returns the passed value very first time appear in the tuple
+#* index() - returns the passed value very first time appear in the tuple
 
 print("The first time 'b' appear in the tuple at: {}".format(letters_tuple.index("b")))
 

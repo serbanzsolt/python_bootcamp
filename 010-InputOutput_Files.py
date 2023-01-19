@@ -71,4 +71,3 @@ with open(filePath, mode = "w") as f:
     
 with open(filePath, mode = "r") as f:
     print("After reset file: {}<".format(f.read()))
-
