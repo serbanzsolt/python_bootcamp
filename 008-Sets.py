@@ -3,7 +3,7 @@
 #* 008 - Sets
 #? =============================================================================
 
-#* Unordered collection if unique elements
+#* Unordered collection of unique elements
 
 my_set = set()
 
