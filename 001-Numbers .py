@@ -26,6 +26,7 @@ print (number_01 , " % " , number_02, " = " ,(number_01 % number_02), " is the r
 # ==============================================================================
 
 print (number_01 , " ** " , number_02, " = " ,(number_01 ** number_02))
+print (number_01, " ** 0.5 = ", (number_01 ** 0.5) )
 print (number_01 , " // " , number_02, " = " ,(number_01 // number_02))
 
 print("2 + 10 * 10 + 3 = ", 2 + 10 * 10 + 3)

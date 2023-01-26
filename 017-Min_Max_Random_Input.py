@@ -26,7 +26,7 @@ ordered_list = [1,2,3,4,5,6,7,8,9]
 print("Here is a list with ordered items: {}".format(ordered_list))
 
 shuffled_list = shuffle(ordered_list)
-#* shuffle() in an in-place function, shuffled_list will return None!
+#* shuffle() is an in-place function, shuffled_list will return None!
 
 print("After shuffled the list: {}".format(ordered_list))
 
