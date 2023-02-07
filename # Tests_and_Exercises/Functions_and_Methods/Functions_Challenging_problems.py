@@ -20,14 +20,13 @@ def spy_game(nums):
         pass
     else:
         return False
-    
+
 mylist = [1,0,3,21,0,12,3,1,7]
-#print(mylist.count(0))
-indexes = []
-for index, item in enumerate (mylist):
-    print(index)
-    if (item == 0) or (item == 7):
-        indexes.append(index)
-indexes.sort()
-print(indexes)
-if (item[indexes[0]]) and () and ()
+print(mylist.count(0))
+zeroes = []
+sevens = 0
+for index,item in enumerate (mylist):
+    print(f"index: {index}  item: {item}")
+    if item == 0:
+        zeroes.append( (index, item) )
+print(zeroes)
