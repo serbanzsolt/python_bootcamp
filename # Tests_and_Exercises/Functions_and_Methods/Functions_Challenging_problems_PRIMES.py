@@ -36,5 +36,5 @@ def count_primes(num):
             # print(f"FOUND A PRIME!: {number}")
     return primes
         
-result = count_primes(20000)
+result = count_primes(100)
 result_print(result)
