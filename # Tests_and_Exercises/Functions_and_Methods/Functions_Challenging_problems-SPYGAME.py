@@ -1,6 +1,6 @@
 
 #? =============================================================================
-#* Functions and Methods: Challenging PROBLEMS
+#* Functions and Methods: Challenging PROBLEMS - SPYGAME
 #? =============================================================================
 def result_print(result):
     print("The result: {}".format(result))   
