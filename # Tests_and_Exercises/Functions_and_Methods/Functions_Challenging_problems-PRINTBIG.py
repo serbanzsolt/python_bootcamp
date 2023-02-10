@@ -95,25 +95,13 @@ letters = {
             "e" : letter_E
 }
 
-# def print_letter (letter):
-#     for line in letter.value():
-#         print(line)
-#     print("")
+def print_letter (letter):
+    for line in letter.values():
+        print(line)
+    print("")
 
-# print_letter(letter_A)
-
-for line in letter_A.values():
-    print(line)
-print("")
-for line in letter_B.values():
-    print(line)
-print("")
-for line in letter_C.values():
-    print(line)
-print("")
-for line in letter_D.values():
-    print(line)
-print("")
-for line in letter_E.values():
-    print(line)
-print("")
+print_letter(letters["a"])
+print_letter(letters["b"])
+print_letter(letters["c"])
+print_letter(letters["d"])
+print_letter(letters["e"])
