@@ -15,16 +15,16 @@ def title(title):
 title("SPY GAME")
 
 def spy_game(nums):
-    zeroes = []
-    sevens = []
+    idx_zeroes = []
+    idx_sevens = []
     for index, item in enumerate(nums):
         if item == 0:
-            zeroes.append(index)
+            idx_zeroes.append(index)
         elif item == 7:
-            sevens.append(index)
+            idx_sevens.append(index)
             
-    if len(zeroes) >= 2 and len(sevens) >=1:
-        if zeroes[-1] < sevens[-1]:
+    if len(idx_zeroes) >= 2 and len(idx_sevens) >=1:
+        if idx_zeroes[-1] < idx_sevens[-1]:
             return True
         else:
             return False
@@ -63,4 +63,51 @@ result = spy_game([1,0,2,4,0,5,7])
 result_print(result)
 
 result = spy_game([1,7,2,0,4,5,0])
+result_print(result)
+
+# ==============================================================================
+#* More elegant way...
+# ==============================================================================
+
+def spy_g (nums):
+    
+    code = [0,0,7,"x"]
+    for num in nums:
+        if num == code[0]:
+            code.pop(0)
+            # before pop [0,0,7,"x"]
+            # [0,7,"x"]
+            # [7,"x"]
+            # ["x"] length is 1
+    
+    if len(code) == 1:
+        return True
+    else:
+        return False
+    
+result = spy_g(list1)
+result_print(result)
+
+result = spy_g(list2)
+result_print(result)
+
+result = spy_g(list3)
+result_print(result)
+
+result = spy_g(list4)
+result_print(result)
+
+result = spy_g(list5)
+result_print(result)
+
+result = spy_g(list6)
+result_print(result)
+
+result = spy_g([1,2,4,0,0,7,5])
+result_print(result)
+
+result = spy_g([1,0,2,4,0,5,7])
+result_print(result)
+
+result = spy_g([1,7,2,0,4,5,0])
 result_print(result)
