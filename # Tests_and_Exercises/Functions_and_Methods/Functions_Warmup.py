@@ -23,7 +23,7 @@ def lesser_of_two_evens(a,b):
             return a
         else:
             print("The given even numbers are equal")
-    elif (a % 2 and b % 2) == 1 :
+    elif (a % 2 and b % 2) != 0 :
         if a > b:
             return a
         elif a < b:
@@ -48,6 +48,16 @@ result_print(result)
 result = lesser_of_two_evens(0, 0)
 result_print(result)
 
+#* Solution with min, and max
+def lesser_of_2_evens ( a,b ):
+    if a % 2 == 0 and b % 2 == 0:
+        return min(a,b)
+    else:
+        return max(a,b)
+    
+result = lesser_of_2_evens(100, 20)
+result_print(result)
+        
 # ==============================================================================
 #* ANIMAL CRACKERS: Write a function takes a two-word string
 #* and returns True if both words begin with same letter
@@ -98,4 +108,17 @@ result = makes_twenty(12, 8)
 result_print(result)
 
 result = makes_twenty(2, 3)
+result_print(result)
+
+#*shorter version:
+def makes_20(a,b):
+    return (a+b) == 20 or a == 20 or b == 20
+
+result = makes_20(20, 10)
+result_print(result)
+
+result = makes_20(12, 8)
+result_print(result)
+
+result = makes_20(2, 3)
 result_print(result)

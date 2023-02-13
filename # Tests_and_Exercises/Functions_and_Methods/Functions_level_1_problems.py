@@ -33,6 +33,21 @@ result_print(result)
 result = old_macdonald("mACdONALD")
 result_print(result)
 
+#* Using capitalise() method
+def old_mcdonald(name):
+    first_half = name[:3].lower()
+    second_half = name[3:].lower()
+    
+    return first_half.capitalize() + second_half.capitalize()
+
+result = old_mcdonald("macdonald")
+result_print(result)
+
+result = old_mcdonald("MACDONALD")
+result_print(result)
+
+result = old_mcdonald("mACdONALD")
+result_print(result)
 # ==============================================================================
 #* MASTER YODA: Given a sentence, return a sentence with the words reversed
 # ==============================================================================
@@ -79,4 +94,18 @@ result = almost_there(150)
 result_print(result)
 
 result = almost_there(209)
+result_print(result)
+
+#* using abs() method
+
+def almost_here(n):
+    return ( abs(100-n) <= 10) or (abs(200-n) <= 10)
+
+result = almost_here(104)
+result_print(result)
+
+result = almost_here(150)
+result_print(result)
+
+result = almost_here(209)
 result_print(result)

@@ -18,7 +18,6 @@ def count_primes(num):
     num_list = []
     primes = []
     
-    
     for i in range(0,num+1):
         num_list.append(i)
     # print(f"The list is : {num_list}")
