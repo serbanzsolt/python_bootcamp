@@ -1,13 +1,17 @@
 
 #? =============================================================================
-#* 025 - Lambda Expressions
+#* 025 - Lambda expressions
 #? =============================================================================
 
 def square (num):
-    return num ** 2
+    result = num ** 2
+    return result
 
-my_nums = [1,2,3,4,5]
+print(square(3))
 
-map(square)
+#* Turning it to a lambda expression:
 
+sqr = lambda num: num ** 2
 
+print(sqr)
+print(sqr(2))
