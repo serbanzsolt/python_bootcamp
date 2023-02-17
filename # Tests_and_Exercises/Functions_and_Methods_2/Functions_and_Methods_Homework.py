@@ -88,6 +88,7 @@ print(multiply([1,2,3,-4]))
 # ==============================================================================
 
 def palindrome(s):
+    # s = s.replace(" ","")
     s = s.split()
     s = "".join(i.lower() for i in s)
     return ( s == s[::-1] )
