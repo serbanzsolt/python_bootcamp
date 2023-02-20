@@ -32,7 +32,7 @@ def display_board(board = [" "," "," "," "," "," "," "," "," "]):
 #* Player input function
 def player_input (player):
     print(f"{player} turn!\nPlease choose a field: ")
-    marker = int(msvcrt.getch())
+    marker = int(msvcrt.getch())-1
     print(f"Your choice is: {marker}")
     return marker
     
@@ -47,34 +47,34 @@ def mark (board,marker,sign):
 def win_condition(board):
     
     if (
-        (board[0] and board[3] and board[6] == "X") or
-        (board[6] and board[7] and board[8] == "X") or
-        (board[2] and board[4] and board[6] == "X") or
-        (board[3] and board[4] and board[5] == "X") or
-        (board[0] and board[1] and board[2] == "X") or
-        (board[0] and board[4] and board[8] == "X") or
-        (board[1] and board[4] and board[7] == "X") or
-        (board[2] and board[5] and board[8] == "X")
+        board[0] == board[3] == board[6] == "X" or
+        board[6] == board[7] == board[8] == "X" or
+        board[2] == board[4] == board[6] == "X" or
+        board[3] == board[4] == board[5] == "X" or
+        board[0] == board[1] == board[2] == "X" or
+        board[0] == board[4] == board[8] == "X" or
+        board[1] == board[4] == board[7] == "X" or
+        board[2] == board[5] == board[8] == "X"
     ):
-        print(board)
-        print("X is the winner")
+        # print(board)
+        print("\nX is the winner!\n")
         return True
     elif(
-        (board[0] and board[3] and board[6] == "O") or
-        (board[6] and board[7] and board[8] == "O") or
-        (board[2] and board[4] and board[6] == "O") or
-        (board[3] and board[4] and board[5] == "O") or
-        (board[0] and board[1] and board[2] == "O") or
-        (board[0] and board[4] and board[8] == "O") or
-        (board[1] and board[4] and board[7] == "O") or 
-        (board[2] and board[5] and board[8] == "O")
+        board[0] == board[3] == board[6] == "O" or
+        board[6] == board[7] == board[8] == "O" or
+        board[2] == board[4] == board[6] == "O" or
+        board[3] == board[4] == board[5] == "O" or
+        board[0] == board[1] == board[2] == "O" or
+        board[0] == board[4] == board[8] == "O" or
+        board[1] == board[4] == board[7] == "O" or 
+        board[2] == board[5] == board[8] == "O"
     ):
-        print(board)
-        print("O is the winner")
+        # print(board)
+        print("\nO is the winner!\n")
         return True
     else:
-        print(board)
-        print("keep playing...")
+        # print(board)
+        # print("keep playing...")
         return False
         
 #* Space check - is the space available
@@ -105,6 +105,8 @@ def waiting_indicator(duration):
 #* Test Board
 numeric_board = [0,1,2,3,4,5,6,7,8]
 test_board = ["X"," ","O","X","O","X","X","O","X"]
+
+
 
 # ==============================================================================
 #* GAME STARTS
@@ -157,31 +159,45 @@ while game_running:
     winner = False
     
     while full == False and winner == False:
-        #* PLAYER 1 TURN
+        #* PLAYER 1
         mark_p1 = player_input(player1)
         play_board = mark(play_board,mark_p1,p1_sign)
         display_board(play_board)
+        
         full = full_board(play_board)
-        winner = win_condition(play_board)
-        if full == True and winner == True:
+        winner1 = win_condition(play_board)
+        #* Check Win condition
+        if full == True and winner1 == True:
+            print(f"Congrats {player1}")
             break
+        
+        elif winner1 == True:
+            print(f"Congrats {player1}\n")
+            break
+        
         elif full == True:
-            break
-        elif winner == True:
+            print("\nDraw!\n")
             break
                 
         #* PLAYER 2 TURN
         mark_p2 = player_input(player2)
         play_board = mark(play_board,mark_p2,p2_sign)
         display_board(play_board)
+        
         full = full_board(play_board)
-        winner = win_condition(play_board)
-        if full == True and winner == True:
+        winner2 = win_condition(play_board)
+        #* Check Win condition
+        if full == True and winner2 == True:
+            print(f"Congrats {player2}")
             break
+        
+        elif winner2 == True:
+            print(f"Congrats {player2}\n")
+            break
+        
         elif full == True:
-            break
-        elif winner == True:
-            break
+            print("\nDraw!\n")
+            break        
 
     
     
