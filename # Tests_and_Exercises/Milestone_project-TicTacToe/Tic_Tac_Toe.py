@@ -32,16 +32,28 @@ def display_board(board = [" "," "," "," "," "," "," "," "," "]):
 #* Player input function
 def player_input (player):
     print(f"{player} turn!\nPlease choose a field: ")
-    marker = int(msvcrt.getch())-1
-    print(f"Your choice is: {marker}")
+    input = True
+    numlist = ["0","1","2","3","4","5","6","7","8","9"]
+    while input:
+        marker = msvcrt.getch()
+        marker = str(marker, "utf-8")
+        if marker in numlist:
+            marker = int(marker)-1
+            input = False
+        else:
+            print("\nUse numbers 1-9 to play!")
     return marker
     
 #* Placing the marker
-def mark (board,marker,sign):
+def mark (board,marker,sign,player):
     position_is_empty = (space_check(board,marker))
-    if position_is_empty == True:
+    while position_is_empty == False:
+        print("This LOCATION is OCCUPIED! Choose another one!")
+        marker = player_input(player)
+        position_is_empty = (space_check(board,marker))
+    else:
         board[marker] = sign
-    return board
+        return board
 
 #* Check win condition (3 in line)
 def win_condition(board):
@@ -56,7 +68,6 @@ def win_condition(board):
         board[1] == board[4] == board[7] == "X" or
         board[2] == board[5] == board[8] == "X"
     ):
-        # print(board)
         print("\nX is the winner!\n")
         return True
     elif(
@@ -69,12 +80,9 @@ def win_condition(board):
         board[1] == board[4] == board[7] == "O" or 
         board[2] == board[5] == board[8] == "O"
     ):
-        # print(board)
         print("\nO is the winner!\n")
         return True
     else:
-        # print(board)
-        # print("keep playing...")
         return False
         
 #* Space check - is the space available
@@ -105,8 +113,6 @@ def waiting_indicator(duration):
 #* Test Board
 numeric_board = [0,1,2,3,4,5,6,7,8]
 test_board = ["X"," ","O","X","O","X","X","O","X"]
-
-
 
 # ==============================================================================
 #* GAME STARTS
@@ -161,7 +167,7 @@ while game_running:
     while full == False and winner == False:
         #* PLAYER 1
         mark_p1 = player_input(player1)
-        play_board = mark(play_board,mark_p1,p1_sign)
+        play_board = mark(play_board, mark_p1, p1_sign, player1)
         display_board(play_board)
         
         full = full_board(play_board)
@@ -181,7 +187,7 @@ while game_running:
                 
         #* PLAYER 2 TURN
         mark_p2 = player_input(player2)
-        play_board = mark(play_board,mark_p2,p2_sign)
+        play_board = mark(play_board, mark_p2, p2_sign, player2)
         display_board(play_board)
         
         full = full_board(play_board)
