@@ -11,3 +11,13 @@ b = '1'
 
 if b in mylist:
     print(b)
+    
+    
+print("asdas\asda\asdaff\nmasdasd", end="\r")
+print("asdas\asda\asdaff\nmasdasd", end="\r")
+print("asdas\asda\asdaff\nmasdasd", end="\r")
+print("asdas\asda\asdaff\nmasdasd", end="\r")
+
+mystring = "valami"
+
+print(repr(mystring))

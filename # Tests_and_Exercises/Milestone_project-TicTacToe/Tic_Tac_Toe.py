@@ -21,19 +21,21 @@ def rand_2(player1, player2):
 #* Display Board function
 def display_board(board = [" "," "," "," "," "," "," "," "," "]):
     clear()
-    print("=============")
-    print(f"| {board[6]} | {board[7]} | {board[8]} |")
-    print("=============")
-    print(f"| {board[3]} | {board[4]} | {board[5]} |")
-    print("=============")
-    print(f"| {board[0]} | {board[1]} | {board[2]} |")
-    print("=============")
+    print("<<< TIC TAC TOE GAME >>>\n")
+    print("     =============")
+    print(f"     | {board[6]} | {board[7]} | {board[8]} |")
+    print("     =============")
+    print(f"     | {board[3]} | {board[4]} | {board[5]} |")
+    print("     =============")
+    print(f"     | {board[0]} | {board[1]} | {board[2]} |")
+    print("     =============\n")
 
 #* Player input function
 def player_input (player):
-    print(f"{player} turn!\nPlease choose a field: ")
+    print(f"{player} turn!")
+    print("Please choose a field: ", end="\r")
     input = True
-    numlist = ["0","1","2","3","4","5","6","7","8","9"]
+    numlist = ["1","2","3","4","5","6","7","8","9"]
     while input:
         marker = msvcrt.getch()
         marker = str(marker, "utf-8")
@@ -41,14 +43,14 @@ def player_input (player):
             marker = int(marker)-1
             input = False
         else:
-            print("\nUse numbers 1-9 to play!")
+            print("Use numbers 1-9 to play!", end="\r")
     return marker
     
 #* Placing the marker
 def mark (board,marker,sign,player):
     position_is_empty = (space_check(board,marker))
     while position_is_empty == False:
-        print("This LOCATION is OCCUPIED! Choose another one!")
+        print("This LOCATION is OCCUPIED! Choose another one!", end="\r")
         marker = player_input(player)
         position_is_empty = (space_check(board,marker))
     else:
@@ -108,7 +110,7 @@ def waiting_indicator(duration):
         print(symbols[index % len(symbols)], end='\r')
         index += 1
         time.sleep(0.1)
-            
+
 
 #* Test Board
 numeric_board = [0,1,2,3,4,5,6,7,8]
