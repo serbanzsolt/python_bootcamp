@@ -33,7 +33,7 @@ def display_board(board = [" "," "," "," "," "," "," "," "," "]):
 #* Player input function
 def player_input (player):
     print(f"{player} turn!")
-    print("Please choose a field: ", end="\r")
+    print("Please choose a field: ")
     input = True
     numlist = ["1","2","3","4","5","6","7","8","9"]
     while input:
@@ -43,7 +43,7 @@ def player_input (player):
             marker = int(marker)-1
             input = False
         else:
-            print("Use numbers 1-9 to play!", end="\r")
+            print("Use numbers 1-9 to play!")
     return marker
     
 #* Placing the marker
