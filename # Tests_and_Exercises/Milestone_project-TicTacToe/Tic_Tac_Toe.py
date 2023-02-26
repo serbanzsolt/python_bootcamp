@@ -2,10 +2,10 @@
 #? =============================================================================
 #* Milestone project - Tic Tac Toe
 #? =============================================================================
-import msvcrt #* Microsoft Visual C runtime Library
-import os
-import random
-import time
+import msvcrt #* used for check input Keystrokes - Microsoft Visual C runtime Library 
+import os #* used for clear screen
+import random #* used for randomize players and signs
+import time #* used for timing and sleep()
 
 #* Starting BOARD (empty)
 play_board = [" "," "," "," "," "," "," "," "," "]
@@ -31,27 +31,31 @@ def display_board(board = [" "," "," "," "," "," "," "," "," "]):
     print("     =============\n")
 
 #* Player input function
-def player_input (player):
-    print(f"{player} turn!")
-    print("Please choose a field: ")
+def player_input (player,is_mistyped = False):
+    if is_mistyped == False:
+        print(f"\r{player} turn! \nPlease choose a field: ", end='')
+    else:
+        pass
     input = True
     numlist = ["1","2","3","4","5","6","7","8","9"]
     while input:
         marker = msvcrt.getch()
-        marker = str(marker, "utf-8")
+        marker = marker.decode("latin1")
+        # marker = str(marker, "utf-8")
         if marker in numlist:
             marker = int(marker)-1
             input = False
         else:
-            print("Use numbers 1-9 to play!")
+            spaces = " " * 21
+            print("\rUse numbers 1-9 to play!", spaces, end='')
     return marker
     
 #* Placing the marker
 def mark (board,marker,sign,player):
     position_is_empty = (space_check(board,marker))
     while position_is_empty == False:
-        print("This LOCATION is OCCUPIED! Choose another one!", end="\r")
-        marker = player_input(player)
+        print("\rThis LOCATION is OCCUPIED! Choose another one!", end='')
+        marker = player_input(player,True)
         position_is_empty = (space_check(board,marker))
     else:
         board[marker] = sign
@@ -110,6 +114,23 @@ def waiting_indicator(duration):
         print(symbols[index % len(symbols)], end='\r')
         index += 1
         time.sleep(0.1)
+        
+#* EXTRA: Play Again
+def play_again():
+    correct_aswer = True
+    while correct_aswer == True:
+        user_choice = input("Play AGAIN?... Y/N: ")
+        if user_choice.lower() == "y":
+            correct_aswer == False
+            print("\nReloading...")
+            time.sleep(5)
+            return True
+        elif user_choice.lower() == "n":
+            correct_aswer == False
+            print("\n Goodbye!")
+            return False
+        else:
+            print("Wrong input! Use 'Y' or 'N'...")
 
 
 #* Test Board
@@ -126,35 +147,39 @@ display_board(play_board)
 time.sleep(2)
 clear()
 
+#*PLAYER 1 name
+First_input = input("Player 1 ENTER Name: ")
+print(f"Hello {First_input} !")
+p1_sign = random.choice(["X", "O"])
+time.sleep(3)
+clear()
+
+#*PLAYER 2 name
+Second_input = input("Player 2 ENTER Name: ")
+print(f"Hello {Second_input} !")
+p2_sign = "O" if (p1_sign == "X") else "X"
+time.sleep(3)
+clear()
+
 game_running = True
 while game_running:
-    # #*PLAYER 1 name
-    # First_input = input("Player 1 ENTER Name: ")
-    # print(f"Hello {First_input} !")
-    # p1_sign = random.choice(["X", "O"])
-    # time.sleep(3)
-    # clear()
+    
+    #*WHO WILL START:
+    print("Who will start? ...")
+    waiting_indicator(3)
+    clear()
+    
+    player1 = rand_2(First_input, Second_input)
+    player2 = Second_input if player1 == First_input else First_input
+    
+    #* for testing
+    # player1 = "Player 1"
+    # player2 = "Player 2"
+    # p1_sign = "X"
+    # p2_sign = "O"
 
-    # #*PLAYER 2 name
-    # Second_input = input("Player 2 ENTER Name: ")
-    # print(f"Hello {Second_input} !")
-    # p2_sign = "O" if (p1_sign == "X") else "X"
-    # time.sleep(3)
-    # clear()
     
-    # #*WHO WILL START:
-    # print("Who will start? ...")
-    # waiting_indicator(3)
-    # clear()
-    
-    # player1 = rand_2(First_input, Second_input)
-    # player2 = Second_input if player1 == First_input else First_input
-    
-    player1 = "Player 1"
-    player2 = "Player 2"
-    p1_sign = "X"
-    p2_sign = "O"
-        
+
     print(f"{player1} FIRST!!! Good Luck!")
     print(f"\n{player1} is |{p1_sign}|\n{player2} is |{p2_sign}|")
     time.sleep(3)
@@ -176,15 +201,18 @@ while game_running:
         winner1 = win_condition(play_board)
         #* Check Win condition
         if full == True and winner1 == True:
-            print(f"Congrats {player1}")
+            print(f"Congrats {player1} !\n")
+            game_running = play_again()
             break
         
         elif winner1 == True:
-            print(f"Congrats {player1}\n")
+            print(f"Congrats {player1} !\n")
+            game_running = play_again()
             break
         
         elif full == True:
             print("\nDraw!\n")
+            game_running = play_again()
             break
                 
         #* PLAYER 2 TURN
@@ -196,17 +224,18 @@ while game_running:
         winner2 = win_condition(play_board)
         #* Check Win condition
         if full == True and winner2 == True:
-            print(f"Congrats {player2}")
+            print(f"Congrats {player2} !\n")
+            game_running = play_again()
             break
         
         elif winner2 == True:
-            print(f"Congrats {player2}\n")
+            print(f"Congrats {player2} !\n")
+            game_running = play_again()
             break
         
         elif full == True:
             print("\nDraw!\n")
-            break        
-
-    
-    
-    game_running = False
+            game_running = play_again()
+            break 
+    clear()
+    play_board = [" "," "," "," "," "," "," "," "," "]
