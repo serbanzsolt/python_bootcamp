@@ -42,6 +42,7 @@ print("\nWriting into a file:")
 try:
     f = open("testfile", "w") # r generate OS error
     f.write("Write test in the file")
+    f.close()
 except TypeError:
     print("There was a type error!")
 except OSError:
