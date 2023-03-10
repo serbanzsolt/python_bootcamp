@@ -123,3 +123,53 @@ player_db = [p1, p2, p3]
 for p in player_db:
     lvl = p.get("level", 0) #second argument here is the default when there is no data
     print(f"Level: {lvl}")
+    
+# ==============================================================================
+#* raise()
+# ==============================================================================
+
+user_input = 10 # If odd, error is raised
+if user_input % 2 == 1:
+    err = "Must be even number of players"
+    raise Exception(err)
+
+team_a_size = user_input / 2
+team_b_size = team_a_size
+
+print(f"Team A: {team_a_size} players")
+
+# ==============================================================================
+#* insert()
+# ==============================================================================
+
+x = [1,2,3]
+x.insert(4, 3) # insert (where, what) index for is not exist so it automatically will be the last one
+print(x)
+
+# ==============================================================================
+#* Floor Division
+# ==============================================================================
+
+x = [4, -5, 6]
+y = lambda x: abs(x//2)
+z = list(map(y, x))
+print(z)
+
+# ==============================================================================
+#* Recursion
+# ==============================================================================
+
+def factorial(n):
+    if n == 1: return 1
+    return n * factorial(n-1)
+
+print(factorial(6))
+
+# ==============================================================================
+#*remove()
+# ==============================================================================
+
+x = [1,2,3,2,1]
+x.remove(2)
+y = sum(x)
+print (y)
