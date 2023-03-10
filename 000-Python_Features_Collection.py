@@ -107,7 +107,7 @@ print(f"{firstname} {lastname} is {age} years old")
 # ==============================================================================
 
 x = "abcABC"
-y = x.title() #AbcABC title makes the first lette capitalized
+y = x.title() #AbcABC title makes the first letter capitalized
 z = y.rfind("b") # rfind gives back the index of the last found item
 print(z)
 
