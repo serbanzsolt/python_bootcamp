@@ -143,7 +143,8 @@ print(f"Team A: {team_a_size} players")
 # ==============================================================================
 
 x = [1,2,3]
-x.insert(4, 3) # insert (where, what) index for is not exist so it automatically will be the last one
+x.insert(4, 3) # insert (where, what) index for is not exist 
+                #so it automatically will be the last one
 print(x)
 
 # ==============================================================================
@@ -163,13 +164,32 @@ def factorial(n):
     if n == 1: return 1
     return n * factorial(n-1)
 
-print(factorial(6))
+print(factorial(7))
 
 # ==============================================================================
 #*remove()
 # ==============================================================================
 
 x = [1,2,3,2,1]
-x.remove(2)
+x.remove(2) # remove will remove the item in () but only the first it finds
 y = sum(x)
 print (y)
+
+# ==============================================================================
+#* Python Carets ^
+# ==============================================================================
+
+x = "b001"
+y = [x.find("0")]
+z = len(y)^2 # ^ exclusive or -> 1^2 binary -> 11 binary is 3 in decimal
+print(z)
+
+# ==============================================================================
+#* title()
+# ==============================================================================
+
+first = "bOB"
+second = "sMITH"
+
+name = f"{first} {second}"
+print(f"Your name is: {name.title()}.")
