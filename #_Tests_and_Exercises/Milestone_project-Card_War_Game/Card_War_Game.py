@@ -4,12 +4,15 @@
 #? =============================================================================
 import random
 
-#* GLOBALS:
+# ==============================================================================
+#* GLOBALS
+# ==============================================================================
 
 suits = ("Hearts",
         "Clubs",
         "Spades",
         "Diamonds")
+
 ranks = ("Two",
         "Three",
         "Four",
@@ -40,6 +43,10 @@ card_values = {
     "Ace" : 14
 }
 
+# ==============================================================================
+#* CARD CLASS
+# ==============================================================================
+
 class Card():
 
     
@@ -60,6 +67,11 @@ print(c1.value)
 three_of_hearts = Card("Hearts", "Three")
 print(three_of_hearts)
 print(three_of_hearts.value)
+print(three_of_hearts.suit)
+
+# ==============================================================================
+#* DECK CLASS
+# ==============================================================================
 
 class Deck():
     
@@ -75,6 +87,8 @@ class Deck():
     def shuffle(self):
         random.shuffle(self.all_cards)
         
+    def deal_one(self):
+        return self.all_cards.pop()
                 
 new_deck = Deck()
 print(new_deck.all_cards)
@@ -85,4 +99,62 @@ new_deck.shuffle()
 
 for card in new_deck.all_cards:
     print(card)
+
+popped_ones = []
+
+for i in range(10):
+    popped_ones.append(new_deck.deal_one())
+
+print("\nCards we popped out:\n")    
+for c in popped_ones:
+    print(c)
+
+print("\nCards left in the deck:")    
+print(f"Number of cards left: {(len(new_deck.all_cards))}\n")
+for c in new_deck.all_cards:
+    print(c)
+print("\n")
+# ==============================================================================
+#* PLAYER CLASS
+# ==============================================================================
+
+class Player():
     
+    def __init__ (self, name):
+        
+        self.name = name
+        self.all_cards = []
+        
+    def remove_one(self):
+        return self.all_cards.pop(0)
+
+    def add_cards(self, new_cards):
+        if type(new_cards) == type( [] ):
+            #* List of multiple card obj
+            self.all_cards.extend(new_cards)
+        else:
+            #* List of single card obj
+            self.all_cards.append(new_cards)
+    
+    def __str__(self) -> str:
+        return f"Player {self.name} has {len(self.all_cards)} cards."
+
+deck1 = Deck()
+deck1.shuffle()
+my_card = deck1.deal_one()
+print(f"My card: {my_card}")
+    
+new_player = Player("Zsolt")
+print(new_player)
+
+new_player.add_cards(my_card)
+print(new_player)
+
+new_player.add_cards([my_card, my_card, my_card])
+print(new_player)
+
+new_player.remove_one()
+print(new_player)
+
+for card in new_player.all_cards:
+    print(card)
