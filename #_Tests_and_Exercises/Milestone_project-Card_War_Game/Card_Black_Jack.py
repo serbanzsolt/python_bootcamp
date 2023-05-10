@@ -12,6 +12,7 @@
 #* IMPORTS
 # ==============================================================================
 import random
+import os
 
 # ==============================================================================
 #* DECLARATION AND INITIALIZATION
@@ -37,7 +38,58 @@ card_values = {
     "Ace" : 11
 }
 
+printBoard = []
 
+# ==============================================================================
+#* FUNCTIONS
+# ==============================================================================
+def clear():
+    os.system("cls")
+
+def load_printBoard():
+    printBoard.append(f"            {dealer.hand[1]}                   ")
+    printBoard.append(f"            {dealer.hand[0]}                   ")
+    printBoard.append(f"                ------                >>>Balance: {dealer.balance} CR")
+    printBoard.append(f"                | {dealer.hand_counter} |                >>>{dealer.playername}")
+    printBoard.append("----------------------------------------")
+    printBoard.append(f"                | {player1.hand_counter} |                >>>{player1.playername}")
+    printBoard.append(f"                ------                >>>Balance: {player1.balance} CR")
+    printBoard.append(f"            {player1.hand[0]}                   ")
+    printBoard.append(f"            {player1.hand[1]}                   ")
+
+def print_the_Board():
+    for item in printBoard:
+        print(item)
+    # print(f"            {dealer.hand[1]}                   ")
+    # print(f"            {dealer.hand[0]}                   ")
+    # print(f"                ------                >>>Balance: {dealer.balance} CR")
+    # print(f"                | {dealer.hand_counter} |                >>>{dealer.playername}")
+    # print("----------------------------------------")
+    # print(f"                | {player1.hand_counter} |                >>>{player1.playername}")
+    # print(f"                ------                >>>Balance: {player1.balance} CR")
+    # print(f"            {player1.hand[0]}                   ")
+    # print(f"            {player1.hand[1]}                   ")
+
+def menu() -> int:
+        print("\nChoose your action!")
+        print("1. Draw a CARD!")
+        print("2. Stop. Let's see the dealer's hand!")
+        print("")
+        print("5. Quit the GAME")
+
+        menu = [1,2,5]
+        while True:
+            try:
+                user_choice = int(input("Provide your action's number: "))
+            except:
+                print("That's not a number!")
+                continue
+            if (user_choice not in menu):
+                print("That not a menu number! Try: 1,2,5 instead")
+            else:
+                break
+        return user_choice
+    
 # ==============================================================================
 #* CARDS
 # ==============================================================================
@@ -68,7 +120,8 @@ class Deck():
         
         for suit in suits:
             for rank in ranks:
-                self.fulldeck.append(Card(rank, suit))
+                created_card = Card(rank, suit)
+                self.fulldeck.append(created_card)
                 
     def __str__(self) -> str:
         return f"This deck has {len(self.fulldeck)} cards in it"
@@ -83,21 +136,10 @@ class Deck():
 #*Test the deck        
 # myDeck = Deck()
 # print(myDeck)
+# for x in myDeck.fulldeck:
+#     print(x)
 # myDeck.shuffle_the_deck()
 # myDeck.list_the_deck()
-
-# ==============================================================================
-#* HANDS
-# ==============================================================================
-
-class Hand():
-    
-    def __init__(self):
-        
-        
-        pass
-
-
 
 # ==============================================================================
 #* PLAYER
@@ -105,14 +147,94 @@ class Hand():
 
 class Player():
     
-    def __init__(self, player_name, balance):
+    def __init__(self, player_name:str, game_deck:Deck(), balance:int):
         
         self.playername = player_name
+        self.game_deck = game_deck
         self.balance = balance
+        self.hand = []
+        self.hand_counter = 0
         
     def __str__(self) -> str:
         return f"\nPlayer Name: {self.playername}\nPlayer Balance:{self.balance} CR"
     
-zsolt = Player("Zsolt", 10000)
-zsolt.player_deck.list_the_deck()
-print(zsolt)
+    def draw_one(self):
+        return self.game_deck.fulldeck.pop()
+    
+    def show_counter(self):
+        for x in self.hand:
+            self.hand_counter += x.value
+        return self.hand_counter
+
+test_deck = Deck()
+test_deck.shuffle_the_deck()
+"""
+* Max length
+len_deck = []
+for x in test_deck.fulldeck:
+    len_deck.append(len(str(x)))
+print(max(len_deck))
+* 17 char is the max
+"""
+# test_player = Player("Zsolt", test_deck, 10000)
+# print(test_player)
+
+# test_player.hand.append(test_player.draw_one())
+# test_player.hand.append(test_player.draw_one())
+
+# for x in test_player.hand:
+#     print(x)
+# test_player.hand_counter = test_player.show_counter()
+# print(test_player.hand_counter)
+
+# test_player.hand.append(test_player.draw_one())
+# for x in test_player.hand:
+#     print(x)
+# test_player.hand_counter = test_player.show_counter()
+# print(test_player.hand_counter)
+
+# ==============================================================================
+#* GAME LOGIC
+# ==============================================================================
+
+game_running = True
+
+while game_running:
+    clear()
+    #* GENERATING THE DECK
+    game_deck = Deck()
+    game_deck.shuffle_the_deck()
+    
+    #* GENERATING THE PLAYERS
+    player1 = Player("Zsolt", game_deck, 1_000)
+    dealer = Player("Dealer", game_deck, 1_000_000)
+
+    #*STARTING HANDS
+    dealer.hand.append(dealer.draw_one())
+    player1.hand.append(player1.draw_one())
+    dealer.hand.append(dealer.draw_one())
+    player1.hand.append(player1.draw_one())
+    
+    #*STARTING COUNTERS
+    dealer.hand_counter = dealer.show_counter()
+    player1.hand_counter = player1.show_counter()
+    
+    load_printBoard()
+    print_the_Board()
+    user_choice = menu()
+    
+    #*PLAYER CHICES
+    while user_choice != 5:
+        if user_choice == 1:
+            player1.hand.append(player1.draw_one())
+            player1.hand_counter = player1.show_counter()
+            clear()
+            printBoard.append(f"            {player1.hand[-1]}                   ")
+            print_the_Board()
+            user_choice = menu()
+        
+    
+    
+    #* STOP RUNNING
+    game_running = False
+
