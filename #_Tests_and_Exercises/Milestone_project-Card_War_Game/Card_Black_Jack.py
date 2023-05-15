@@ -46,29 +46,20 @@ printBoard = []
 def clear():
     os.system("cls")
 
-def load_printBoard():
+def load_printBoard(dealer, player):
     printBoard.append(f"            {dealer.hand[1]}                   ")
     printBoard.append(f"            {dealer.hand[0]}                   ")
     printBoard.append(f"                ------                >>>Balance: {dealer.balance} CR")
     printBoard.append(f"                | {dealer.hand_counter} |                >>>{dealer.playername}")
     printBoard.append("----------------------------------------")
-    printBoard.append(f"                | {player1.hand_counter} |                >>>{player1.playername}")
-    printBoard.append(f"                ------                >>>Balance: {player1.balance} CR")
-    printBoard.append(f"            {player1.hand[0]}                   ")
-    printBoard.append(f"            {player1.hand[1]}                   ")
+    printBoard.append(f"                | {player.hand_counter} |                >>>{player.playername}")
+    printBoard.append(f"                ------                >>>Balance: {player.balance} CR")
+    printBoard.append(f"            {player.hand[0]}                   ")
+    printBoard.append(f"            {player.hand[1]}                   ")
 
 def print_the_Board():
     for item in printBoard:
         print(item)
-    # print(f"            {dealer.hand[1]}                   ")
-    # print(f"            {dealer.hand[0]}                   ")
-    # print(f"                ------                >>>Balance: {dealer.balance} CR")
-    # print(f"                | {dealer.hand_counter} |                >>>{dealer.playername}")
-    # print("----------------------------------------")
-    # print(f"                | {player1.hand_counter} |                >>>{player1.playername}")
-    # print(f"                ------                >>>Balance: {player1.balance} CR")
-    # print(f"            {player1.hand[0]}                   ")
-    # print(f"            {player1.hand[1]}                   ")
 
 def menu() -> int:
         print("\nChoose your action!")
@@ -162,8 +153,10 @@ class Player():
         return self.game_deck.fulldeck.pop()
     
     def show_counter(self):
+        counter = 0
         for x in self.hand:
-            self.hand_counter += x.value
+            counter += x.value
+        self.hand_counter = counter
         return self.hand_counter
 
 test_deck = Deck()
@@ -216,10 +209,10 @@ while game_running:
     player1.hand.append(player1.draw_one())
     
     #*STARTING COUNTERS
-    dealer.hand_counter = dealer.show_counter()
-    player1.hand_counter = player1.show_counter()
-    
-    load_printBoard()
+    dealer.show_counter()
+    player1.show_counter()
+        
+    load_printBoard(dealer, player1)
     print_the_Board()
     user_choice = menu()
     
@@ -227,14 +220,15 @@ while game_running:
     while user_choice != 5:
         if user_choice == 1:
             player1.hand.append(player1.draw_one())
-            player1.hand_counter = player1.show_counter()
+            player1.show_counter()
+            # load_printBoard()
             clear()
+            printBoard = []
+            load_printBoard(dealer, player1)
             printBoard.append(f"            {player1.hand[-1]}                   ")
             print_the_Board()
             user_choice = menu()
-        
-    
-    
+            
     #* STOP RUNNING
     game_running = False
 
