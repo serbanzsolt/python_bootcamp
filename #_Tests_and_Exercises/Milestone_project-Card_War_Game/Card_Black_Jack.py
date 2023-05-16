@@ -45,7 +45,8 @@ printBoard = []
 # ==============================================================================
 def clear():
     os.system("cls")
-
+    
+#* List version
 def load_printBoard(dealer, player):
     printBoard.append(f"            {dealer.hand[1]}                   ")
     printBoard.append(f"            {dealer.hand[0]}                   ")
@@ -56,10 +57,23 @@ def load_printBoard(dealer, player):
     printBoard.append(f"                ------                >>>Balance: {player.balance} CR")
     printBoard.append(f"            {player.hand[0]}                   ")
     printBoard.append(f"            {player.hand[1]}                   ")
+    
 
 def print_the_Board():
     for item in printBoard:
         print(item)
+
+#* Print version        
+def printing_Board(dealer, player):
+    print(f"            {dealer.hand[1]}                   ")
+    print(f"            {dealer.hand[0]}                   ")
+    print(f"                ------                >>>Balance: {dealer.balance} CR")
+    print(f"                | {dealer.hand_counter} |                >>>{dealer.playername}")
+    print("----------------------------------------")
+    print(f"                | {player.hand_counter} |                >>>{player.playername}")
+    print(f"                ------                >>>Balance: {player.balance} CR")
+    print(f"            {player.hand[0]}                   ")
+    print(f"            {player.hand[1]}                   ")
 
 def menu() -> int:
         print("\nChoose your action!")
@@ -67,7 +81,7 @@ def menu() -> int:
         print("2. Stop. Let's see the dealer's hand!")
         print("")
         print("5. Quit the GAME")
-
+        
         menu = [1,2,5]
         while True:
             try:
@@ -201,6 +215,9 @@ while game_running:
     #* GENERATING THE PLAYERS
     player1 = Player("Zsolt", game_deck, 1_000)
     dealer = Player("Dealer", game_deck, 1_000_000)
+    
+    pulled_by_player = []
+    pulled_by_dealer = []
 
     #*STARTING HANDS
     dealer.hand.append(dealer.draw_one())
@@ -212,21 +229,34 @@ while game_running:
     dealer.show_counter()
     player1.show_counter()
         
-    load_printBoard(dealer, player1)
-    print_the_Board()
+    printing_Board(dealer, player1)
     user_choice = menu()
     
-    #*PLAYER CHICES
+    #*PLAYER CHOICES
     while user_choice != 5:
         if user_choice == 1:
             player1.hand.append(player1.draw_one())
             player1.show_counter()
-            # load_printBoard()
             clear()
-            printBoard = []
-            load_printBoard(dealer, player1)
-            printBoard.append(f"            {player1.hand[-1]}                   ")
-            print_the_Board()
+            pulled_by_player.append(f"            {player1.hand[-1]}                   ")
+            for line in reversed(pulled_by_dealer):
+                print(line)
+            printing_Board(dealer, player1)
+            for line in pulled_by_player:
+                print(line)
+            user_choice = menu()
+        
+        elif user_choice == 2:
+            while (dealer.hand_counter <= 16) or (dealer.hand_counter <= player1.hand_counter):
+                dealer.hand.append(dealer.draw_one())
+                dealer.show_counter()
+                clear()
+                pulled_by_dealer.append(f"            {dealer.hand[-1]}                   ")
+                for line in reversed(pulled_by_dealer):
+                    print(line)
+                printing_Board(dealer, player1)
+                for line in pulled_by_player:
+                    print(line)
             user_choice = menu()
             
     #* STOP RUNNING
