@@ -94,12 +94,12 @@ class Deck():
 # myDeck.list_the_deck()
 
 # ==============================================================================
-#* PLAYER
+#* PLAYERS
 # ==============================================================================
 
 class Player():
     
-    def __init__(self, player_name:str, game_deck:Deck(), balance:int):
+    def __init__(self, player_name:str, game_deck:Deck, balance:int):
         
         self.playername = player_name
         self.game_deck = game_deck
@@ -154,7 +154,7 @@ def clear():
     os.system("cls")
     
 #* List version
-def load_printBoard(dealer:Player(), player:Player()):
+def load_printBoard(dealer:Player, player:Player):
     printBoard.append(f"            {dealer.hand[1]}                   ")
     printBoard.append(f"            {dealer.hand[0]}                   ")
     printBoard.append(f"                ------                >>>Balance: {dealer.balance} CR")
@@ -171,7 +171,7 @@ def print_the_Board():
         print(item)
 
 #* Print version        
-def printing_Board(dealer:Player(), player:Player()):
+def printing_Board(dealer:Player, player:Player):
     print(f"            {dealer.hand[1]}                   ")
     print(f"            {dealer.hand[0]}                   ")
     print(f"                ------                >>>Balance: {dealer.balance} CR")
@@ -202,22 +202,22 @@ def menu() -> int:
                 break
         return user_choice
     
-def check_win_condition(dealer_score, player_score, dealer:Player(), player:Player()):
-    if player_score > 21:
+def check_win_condition(dealer:Player, player:Player):
+    if player.hand_counter > 21:
         print("Player1 : BUST!")
         print("Dealer WON!")
-    elif dealer_score > 21:
+    elif dealer.hand_counter > 21:
         print("Dealer : BUST!")
         print("Player WON!")
-    elif dealer_score == player_score == 21:
+    elif dealer.hand_counter == player.hand_counter == 21:
         if len(dealer.hand) > len(player.hand):
             print("Draw but player has 21 with less card: Player1 WON!")
         elif len(dealer.hand) < len(player.hand):
             print("Draw but dealer has 21 with less card: Dealer WON!")
         elif len(dealer.hand) == len(player.hand):
             print("Draw!!! Player and Dealer has 21 with the same ammount of cards!")
-    elif player_score < 21 and dealer_score < 21:
-        if player_score > dealer_score:
+    elif player.hand_counter < 21 and dealer.hand_counter < 21:
+        if player.hand_counter > dealer.hand_counter:
             print("Player1 WON!")
         
 # ==============================================================================
