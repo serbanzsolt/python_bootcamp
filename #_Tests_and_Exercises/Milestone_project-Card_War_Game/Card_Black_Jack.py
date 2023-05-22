@@ -268,7 +268,7 @@ while game_running:
             for line in pulled_by_player:
                 print(line)
             
-            # user_choice = menu()
+            user_choice = menu()
             check_win_condition(dealer, player1)
         
         elif user_choice == 2:
@@ -285,7 +285,7 @@ while game_running:
                 for line in pulled_by_player:
                     print(line)
             
-            # user_choice = menu()
+            user_choice = menu()
             check_win_condition(dealer, player1)
             
         elif user_choice == 5:
