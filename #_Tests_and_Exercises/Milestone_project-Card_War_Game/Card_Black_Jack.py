@@ -113,7 +113,7 @@ class Player():
     def draw_one(self):
         return self.game_deck.fulldeck.pop()
     
-    def show_counter(self):
+    def count_hand(self):
         counter = 0
         for x in self.hand:
             counter += x.value
@@ -246,8 +246,8 @@ while game_running:
     player1.hand.append(player1.draw_one())
     
     #*STARTING COUNTERS
-    dealer.show_counter()
-    player1.show_counter()
+    dealer.count_hand()
+    player1.count_hand()
         
     printing_Board(dealer, player1)
     user_choice = menu()
@@ -257,7 +257,9 @@ while game_running:
     while user_choice != 5 or player1.hand_counter <= 21 or dealer.hand_counter <= 21:
         if user_choice == 1:
             player1.hand.append(player1.draw_one())
-            player1.show_counter()
+            player1.count_hand()
+            
+            #*output table
             clear()
             pulled_by_player.append(f"            {player1.hand[-1]}                   ")
             for line in reversed(pulled_by_dealer):
@@ -265,12 +267,16 @@ while game_running:
             printing_Board(dealer, player1)
             for line in pulled_by_player:
                 print(line)
+            
             user_choice = menu()
+            check_win_condition(dealer, player1)
         
         elif user_choice == 2:
             while (dealer.hand_counter <= 16) or (dealer.hand_counter <= player1.hand_counter):
                 dealer.hand.append(dealer.draw_one())
-                dealer.show_counter()
+                dealer.count_hand()
+                
+                #*output table
                 clear()
                 pulled_by_dealer.append(f"            {dealer.hand[-1]}                   ")
                 for line in reversed(pulled_by_dealer):
@@ -278,7 +284,9 @@ while game_running:
                 printing_Board(dealer, player1)
                 for line in pulled_by_player:
                     print(line)
+            
             user_choice = menu()
+            check_win_condition(dealer, player1)
             
         elif user_choice == 5:
             break
