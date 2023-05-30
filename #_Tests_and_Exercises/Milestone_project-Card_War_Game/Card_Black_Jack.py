@@ -105,7 +105,8 @@ class Player():
         self.game_deck = game_deck
         self.balance = balance
         self.hand = []
-        self.hand_counter = 0
+        self.player_score = 0
+        self.aces = 0
         
     def __str__(self) -> str:
         return f"\nPlayer Name: {self.playername}\nPlayer Balance:{self.balance} CR"
@@ -113,12 +114,18 @@ class Player():
     def draw_one(self):
         return self.game_deck.fulldeck.pop()
     
-    def count_hand(self):
+    def count_player_score(self):
         counter = 0
         for x in self.hand:
+            
+            if x.value == 11:
+                self.aces += 1
+                if self.aces > 1:
+                    x.value -= 10
             counter += x.value
-        self.hand_counter = counter
-        return self.hand_counter
+                
+        self.player_score = counter
+        # return self.player_score
 
 test_deck = Deck()
 test_deck.shuffle_the_deck()
@@ -138,14 +145,14 @@ print(max(len_deck))
 
 # for x in test_player.hand:
 #     print(x)
-# test_player.hand_counter = test_player.show_counter()
-# print(test_player.hand_counter)
+# test_player.player_score = test_player.show_counter()
+# print(test_player.player_score)
 
 # test_player.hand.append(test_player.draw_one())
 # for x in test_player.hand:
 #     print(x)
-# test_player.hand_counter = test_player.show_counter()
-# print(test_player.hand_counter)
+# test_player.player_score = test_player.show_counter()
+# print(test_player.player_score)
 
 # ==============================================================================
 #* FUNCTIONS
@@ -158,9 +165,9 @@ def load_printBoard(dealer:Player, player:Player):
     printBoard.append(f"            {dealer.hand[1]}                   ")
     printBoard.append(f"            {dealer.hand[0]}                   ")
     printBoard.append(f"                ------                >>>Balance: {dealer.balance} CR")
-    printBoard.append(f"                | {dealer.hand_counter} |                >>>{dealer.playername}")
+    printBoard.append(f"                | {dealer.player_score} |                >>>{dealer.playername}")
     printBoard.append("----------------------------------------")
-    printBoard.append(f"                | {player.hand_counter} |                >>>{player.playername}")
+    printBoard.append(f"                | {player.player_score} |                >>>{player.playername}")
     printBoard.append(f"                ------                >>>Balance: {player.balance} CR")
     printBoard.append(f"            {player.hand[0]}                   ")
     printBoard.append(f"            {player.hand[1]}                   ")
@@ -175,54 +182,82 @@ def printing_Board(dealer:Player, player:Player):
     print(f"            {dealer.hand[1]}                   ")
     print(f"            {dealer.hand[0]}                   ")
     print(f"                ------                >>>Balance: {dealer.balance} CR")
-    print(f"                | {dealer.hand_counter} |                >>>{dealer.playername}")
+    print(f"                | {dealer.player_score} |                >>>{dealer.playername}")
     print("----------------------------------------")
-    print(f"                | {player.hand_counter} |                >>>{player.playername}")
+    print(f"                | {player.player_score} |                >>>{player.playername}")
     print(f"                ------                >>>Balance: {player.balance} CR")
     print(f"            {player.hand[0]}                   ")
     print(f"            {player.hand[1]}                   ")
 
-def menu() -> int:
+def menu():
         print("\nChoose your action!")
         print("1. Draw a CARD!")
         print("2. Stop. Let's see the dealer's hand!")
         print("")
         print("5. Quit the GAME")
-        
-        menu = [1,2,5]
-        while True:
-            try:
-                user_choice = int(input("Provide your action's number: "))
-            except:
-                print("That's not a number!")
-                continue
-            if (user_choice not in menu):
-                print("That not a menu number! Try: 1,2,5 instead")
-            else:
-                break
-        return user_choice
-    
+
+def menu_choose():
+    menu_number = [1,2,5]
+    while True:
+        try:
+            user_choice = int(input("Provide your action's number: "))
+        except:
+            print("That's not a number!")
+            continue
+        if (user_choice not in menu_number):
+            print("That not a menu number! Try: 1,2,5 instead")
+        else:
+            break
+    return user_choice
+
 def check_win_condition(dealer:Player, player:Player):
-    if player.hand_counter > 21:
-        print("Player1 : BUST!")
+    if player.player_score > 21:
+        print("Player : BUST!")
         print("Dealer WON!")
-    elif dealer.hand_counter > 21:
+    elif dealer.player_score > 21:
         print("Dealer : BUST!")
         print("Player WON!")
-    elif dealer.hand_counter == player.hand_counter == 21:
+    elif dealer.player_score == player.player_score == 21:
         if len(dealer.hand) > len(player.hand):
             print("Draw but player has 21 with less card: Player1 WON!")
         elif len(dealer.hand) < len(player.hand):
             print("Draw but dealer has 21 with less card: Dealer WON!")
         elif len(dealer.hand) == len(player.hand):
             print("Draw!!! Player and Dealer has 21 with the same ammount of cards!")
-    elif player.hand_counter < 21 and dealer.hand_counter < 21:
-        if player.hand_counter > dealer.hand_counter:
-            print("Player1 WON!")
+    elif player.player_score < 21 and dealer.player_score < 21:
+        if player.player_score > dealer.player_score:
+            print("Player WON!")
         
 # ==============================================================================
 #* GAME LOGIC
 # ==============================================================================
+#* test START
+# clear()
+# game_deck = Deck()
+# game_deck.shuffle_the_deck()
+
+# player1 = Player("Zsolt", game_deck, 1_000)
+# dealer = Player("Dealer", game_deck, 1_000_000)
+
+# dealer.hand.append(dealer.draw_one())
+# player1.hand.append(player1.draw_one())
+# dealer.hand.append(dealer.draw_one())
+# player1.hand.append(player1.draw_one())
+
+
+
+# for x in player1.hand:
+#     print(x)
+# player1.count_player_score()
+# print(player1.player_score)
+# player1.hand.append(player1.draw_one())
+
+# for x in player1.hand:
+#     print(x)
+# player1.count_player_score()
+# print(player1.player_score)
+#* test END
+
 
 game_running = True
 
@@ -246,35 +281,46 @@ while game_running:
     player1.hand.append(player1.draw_one())
     
     #*STARTING COUNTERS
-    dealer.count_hand()
-    player1.count_hand()
+    dealer.count_player_score()
+    player1.count_player_score()
         
     printing_Board(dealer, player1)
-    user_choice = menu()
+    menu()
+    user_choice = menu_choose()
     
     #*PLAYER CHOICES
-    # while player1.hand_counter <= 21 or dealer.hand_counter <= 21:
-    while user_choice != 5 or player1.hand_counter <= 21 or dealer.hand_counter <= 21:
+    # while player1.player_score <= 21 or dealer.player_score <= 21:
+    while user_choice != 5:
         if user_choice == 1:
-            player1.hand.append(player1.draw_one())
-            player1.count_hand()
-            
-            #*output table
-            clear()
-            pulled_by_player.append(f"            {player1.hand[-1]}                   ")
-            for line in reversed(pulled_by_dealer):
-                print(line)
-            printing_Board(dealer, player1)
-            for line in pulled_by_player:
-                print(line)
-            
-            user_choice = menu()
-            check_win_condition(dealer, player1)
+            if player1.player_score <= 21:
+                player1.hand.append(player1.draw_one())
+                player1.count_player_score()
+                
+                #*output table
+                clear()
+                pulled_by_player.append(f"            {player1.hand[-1]}                   ")
+                for line in reversed(pulled_by_dealer):
+                    print(line)
+                printing_Board(dealer, player1)
+                for line in pulled_by_player:
+                    print(line)
+                
+                if player1.player_score > 21:
+                    check_win_condition(dealer,player1)
+                    break
+                elif player1.player_score <= 21:
+                    menu()
+                    user_choice = menu_choose()
+                
+            else:
+                check_win_condition(dealer, player1)
+                break
+                
         
         elif user_choice == 2:
-            while (dealer.hand_counter <= 16) or (dealer.hand_counter <= player1.hand_counter):
+            while (dealer.player_score <= 16) or (dealer.player_score <= player1.player_score):
                 dealer.hand.append(dealer.draw_one())
-                dealer.count_hand()
+                dealer.count_player_score()
                 
                 #*output table
                 clear()
@@ -285,7 +331,8 @@ while game_running:
                 for line in pulled_by_player:
                     print(line)
             
-            user_choice = menu()
+            menu()
+            user_choice = menu_choose()
             check_win_condition(dealer, player1)
             
         elif user_choice == 5:
@@ -293,4 +340,3 @@ while game_running:
 
     #* STOP RUNNING
     game_running = False
-
