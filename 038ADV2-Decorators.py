@@ -14,3 +14,6 @@ def random_power():
 for i in range(10):
     p = random_power()
     print(p(10))
+
+print("-------------------------------------------------------------")
+
