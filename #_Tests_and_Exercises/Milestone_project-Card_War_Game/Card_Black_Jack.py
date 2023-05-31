@@ -114,15 +114,20 @@ class Player():
     def draw_one(self):
         return self.game_deck.fulldeck.pop()
     
+    #* GAME COUNT LOGIC
     def count_player_score(self):
         counter = 0
         for x in self.hand:
-            
+            #* ACES
             if x.value == 11:
                 self.aces += 1
                 if self.aces > 1:
                     x.value -= 10
+            
+            #* ACES AND OVER 21
             counter += x.value
+            if counter > 21 and self.aces > 0:
+                x.value -= 10                
                 
         self.player_score = counter
         # return self.player_score
@@ -195,6 +200,9 @@ def menu():
         print("2. Stop. Let's see the dealer's hand!")
         print("")
         print("5. Quit the GAME")
+        
+        print(f"P1 aces: {player1.aces}")
+        print(f"D aces: {dealer.aces}")
 
 def menu_choose():
     menu_number = [1,2,5]
@@ -229,7 +237,7 @@ def check_win_condition(dealer:Player, player:Player):
             print("Player WON!")
         
 # ==============================================================================
-#* GAME LOGIC
+#* GAME BEGINS
 # ==============================================================================
 #* test START
 # clear()
@@ -271,6 +279,7 @@ while game_running:
     player1 = Player("Zsolt", game_deck, 1_000)
     dealer = Player("Dealer", game_deck, 1_000_000)
     
+    #* STORE NEW CARDS FOR THE DISPLAY BOARDS
     pulled_by_player = []
     pulled_by_dealer = []
 
@@ -283,7 +292,8 @@ while game_running:
     #*STARTING COUNTERS
     dealer.count_player_score()
     player1.count_player_score()
-        
+    
+    #*STARTING BOARD
     printing_Board(dealer, player1)
     menu()
     user_choice = menu_choose()
@@ -331,9 +341,10 @@ while game_running:
                 for line in pulled_by_player:
                     print(line)
             
-            menu()
-            user_choice = menu_choose()
-            check_win_condition(dealer, player1)
+                # menu()
+                # user_choice = menu_choose()
+            else:
+                check_win_condition(dealer, player1)
             
         elif user_choice == 5:
             break
