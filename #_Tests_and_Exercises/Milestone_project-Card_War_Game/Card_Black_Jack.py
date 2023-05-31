@@ -127,7 +127,8 @@ class Player():
             #* ACES AND OVER 21
             counter += x.value
             if counter > 21 and self.aces > 0:
-                x.value -= 10                
+                x.value -= 10   
+                counter -= 10             
                 
         self.player_score = counter
         # return self.player_score
@@ -345,6 +346,7 @@ while game_running:
                 # user_choice = menu_choose()
             else:
                 check_win_condition(dealer, player1)
+                break
             
         elif user_choice == 5:
             break
