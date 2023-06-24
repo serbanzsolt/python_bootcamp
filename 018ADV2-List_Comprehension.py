@@ -33,11 +33,11 @@ print(len(result3))
 print("--------------------------------------------------------------------------")
 # ==============================================================================
 #* Create a list of all the consonants in the string 
-#* “Yellow Yaks like yelling and yawning and yesturday they yodled while eating yuky yams”
+#* “Yellow Yaks like yelling and yawning and yesterday they yodled while eating yuky yams”
 # ==============================================================================
 print("Case 4:")
 
-string_with_consonants = "Yellow Yaks like yelling and yawning and yesturday they yodled while eating yuky yams"
+string_with_consonants = "Yellow Yaks like yelling and yawning and yesterday they yodled while eating yuky yams"
 result4 = [con for con in string_with_consonants.lower() if con not in ("a,e,i,o,u")]
 print(result4)
 
@@ -128,7 +128,3 @@ print()
 
 result = [number for number in range(1,100) if True in [True for x in range(2,10) if number % x == 0]]
 print(result)
-
-
-
-
