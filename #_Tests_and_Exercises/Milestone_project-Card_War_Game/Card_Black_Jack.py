@@ -6,7 +6,7 @@
 - Blackjack cardgame with Computer Dealer
 - Player has a starting budget of 10000 Credit (CR)
 - NO INSURANCE, NO SPLIT, NO DOUBLE DOWN
-- FIX BET
+- FIX BET >>> changed to betting system
 """
 # ==============================================================================
 #* IMPORTS
