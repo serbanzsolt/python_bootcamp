@@ -37,4 +37,4 @@ class TestEncryption(unittest.TestCase):
         self.assertEqual(encrypted_message, encrypt(self.my_message))
     
 if __name__ == "__main__":
-    unittest.main()
+    unittest.TestCase
